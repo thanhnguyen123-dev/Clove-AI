@@ -1,9 +1,9 @@
 
 import { api, HydrateClient } from "@/trpc/server";
 import { createClient } from "@/utils/supabase/server";
-import LoginButton from "@/components/ui/signin-button";
 import SignOutButton from "@/components/ui/signout-button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import TryoutButton from "@/components/ui/tryout-button";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -13,9 +13,9 @@ export default async function Home() {
   if (!session) {
     return (
       <HydrateClient>
-        <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
+        <main className="flex min-h-screen flex-col gap-2 items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
           <p>hello</p>
-          <LoginButton />
+          <TryoutButton />
         </main>
       </HydrateClient>
     )
@@ -23,7 +23,7 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
+      <main className="flex min-h-screen flex-col gap-2 items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
         <p>hello</p>
         <p>{session?.user?.email}</p>
         <Avatar>
