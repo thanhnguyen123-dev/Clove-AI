@@ -1,11 +1,10 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import type { User, Session } from "@supabase/supabase-js";
+import type { User } from "@supabase/supabase-js";
 
 type AuthContextType = {
   user: User | null;
-  session: Session | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,15 +19,13 @@ export function useAuth() {
 
 export function AuthProvider({ 
   children, 
-  user, 
-  session 
+  user
 }: { 
   children: React.ReactNode, 
   user: User | null, 
-  session: Session | null 
 }) {
   return (
-    <AuthContext.Provider value={{ user, session }}>
+    <AuthContext.Provider value={{ user }}>
       {children}
     </AuthContext.Provider>
   );

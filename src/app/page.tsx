@@ -28,7 +28,6 @@ export default async function Home() {
     <HydrateClient> 
       <AuthProvider 
         user={user}
-        session={session}
       >
         <DashboardPage 
         />
