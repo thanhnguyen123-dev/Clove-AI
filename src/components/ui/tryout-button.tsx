@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 const TryoutButton = () => {
   const router = useRouter();
   return (
-    <Button onClick={() => router.push('/login')}>Tryout</Button>
+    <Button onClick={() => router.push('/login')} className="cursor-pointer">Try out</Button>
   )
 }
 

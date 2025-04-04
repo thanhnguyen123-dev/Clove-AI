@@ -1,6 +1,7 @@
-'use client';
+"use client";
 import React from 'react';
 import { signOut } from '@/app/actions/auth';
+import { Button } from '@/components/ui/button';
 
 const SignOutButton = () => {
   const handleSignOut = async () => {
@@ -8,7 +9,7 @@ const SignOutButton = () => {
   }
   
   return (
-    <button onClick={handleSignOut}>Sign Out</button>
+    <Button onClick={handleSignOut} className="cursor-pointer">Sign Out</Button>
   );
 }
 
