@@ -1,4 +1,4 @@
-# AI Agent
+# Vercon AI Agent
 
 ## Tech Stack
 - [Next.js](https://nextjs.org)
