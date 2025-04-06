@@ -37,12 +37,16 @@ export function NavUser() {
   const { user } = useAuth();
   const email = user?.user_metadata?.email;
   const name = user?.user_metadata?.name;
-  const avatar = user?.user_metadata?.avatar_url;
+  const avatarUrl = user?.user_metadata?.avatar_url;
   const avtarFallbackText = name?.split(" ").map((n: string) => n[0]).join("");
 
   const handleSignOut = async () => {
     await signOut();
   }
+
+  console.log(user?.user_metadata);
+
+  console.log(avatarUrl);
 
   return (
     <SidebarMenu>
@@ -54,7 +58,7 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={avatar} alt={name} />
+                <AvatarImage src={avatarUrl} alt={name} />
                 <AvatarFallback className="rounded-lg">
                   {avtarFallbackText}
                 </AvatarFallback>
@@ -75,7 +79,7 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={avatar} alt={name} />
+                  <AvatarImage src={avatarUrl} alt={name} />
                   <AvatarFallback>
                     {avtarFallbackText}
                   </AvatarFallback>

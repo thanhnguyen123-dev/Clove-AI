@@ -35,7 +35,12 @@ const LoginForm = ({
           <form>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
-                <Button variant="outline" className="w-full cursor-pointer" onClick={handleLogin}>
+                <Button 
+                  variant="outline" 
+                  className="w-full cursor-pointer" 
+                  onClick={handleLogin}
+                  type="button"
+                >
                   <FcGoogle/>
                   Continue with Google
                 </Button>
