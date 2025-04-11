@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 const LoginForm = ({
@@ -18,8 +19,11 @@ const LoginForm = ({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) => {
   const router = useRouter();
-  const handleLogin = async () => {
-    router.push("/auth/login");
+  const handleGoogleLogin = async () => {
+    router.push("/auth/login?provider=google");
+  };
+  const handleGithubLogin = async () => {
+    router.push("/auth/login?provider=github");
   };
 
   return (
@@ -38,11 +42,20 @@ const LoginForm = ({
                 <Button 
                   variant="outline" 
                   className="w-full cursor-pointer" 
-                  onClick={handleLogin}
+                  onClick={handleGoogleLogin}
                   type="button"
                 >
                   <FcGoogle/>
                   Continue with Google
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full cursor-pointer"
+                  onClick={handleGithubLogin}
+                  type="button"
+                >
+                  <FaGithub/>
+                  Continue with Github
                 </Button>
               </div>
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
