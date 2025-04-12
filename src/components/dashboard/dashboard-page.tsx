@@ -69,6 +69,7 @@ const DashboardPage = () => {
           {repos.map((repo) => (
             <div key={repo.id}>
               <h1>{repo.name}</h1>
+              <p>{repo.id}</p>
               <p>{repo.description}</p>
               <p>{repo.updated_at}</p>
               <p>{repo.language}</p>

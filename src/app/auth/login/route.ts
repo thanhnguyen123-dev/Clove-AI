@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     provider,
     options: {
       redirectTo: redirectUrl,
-      scopes: "repo,read:user,read:org,user:email",
+      scopes: provider === "github" ? "repo,read:user,read:org,user:email" : "email profile",
     },
   })
   if (error) {

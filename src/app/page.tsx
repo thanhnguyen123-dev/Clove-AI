@@ -1,11 +1,8 @@
 
-import { api, HydrateClient } from "@/trpc/server";
+import { HydrateClient } from "@/trpc/server";
 import { createClient } from "@/utils/supabase/server";
-import SignOutButton from "@/components/ui/signout-button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import TryoutButton from "@/components/ui/tryout-button";
 import DashboardPage from "@/components/dashboard/dashboard-page";
-import { type Session } from "@supabase/supabase-js";
 import { AuthProvider } from "@/contexts/auth-context";
 
 export default async function Home() {

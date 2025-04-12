@@ -27,10 +27,11 @@ export const githubRouter = createTRPCRouter({
     .query(async ({ input }) => {
       try {
         const octokit = await getOctokit();
+        const { owner, repo } = input;
 
         const response = await octokit.request("GET /repos/{owner}/{repo}", {
-          owner: input.owner, // Use the input owner
-          repo: input.repo,   // Use the input repo
+          owner,
+          repo,  
           headers: {
             "X-GitHub-Api-Version": "2022-11-28",
           },
