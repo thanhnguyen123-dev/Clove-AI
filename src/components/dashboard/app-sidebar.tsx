@@ -55,20 +55,10 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "Repoitory 1",
+          title: "Repository Test",
           url: "/",
           icon: FolderGit2
-        },
-        {
-          title: "Repoitory 2",
-          url: "/",
-          icon: FolderGit2
-        },
-        {
-          title: "Repoitory 3",
-          url: "/",
-          icon: FolderGit2
-        },
+        }
       ],
     },
     // {

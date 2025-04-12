@@ -1,6 +1,6 @@
 import { helloRouter } from "@/server/api/routers/hello";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
-
+import { githubRouter } from "@/server/api/routers/github";
 /**
  * This is the primary router for your server.
  *
@@ -8,6 +8,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   hello: helloRouter,
+  github: githubRouter,
 });
 
 // export type definition of API

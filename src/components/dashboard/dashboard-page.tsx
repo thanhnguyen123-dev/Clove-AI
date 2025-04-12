@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { useState, useEffect } from "react";
 import { AppSidebar } from "@/components/dashboard/app-sidebar";
 import {
   Breadcrumb,
@@ -13,8 +17,24 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { api } from "@/trpc/react";
 
 const DashboardPage = () => {
+
+  const { data: reposData } = api.github.getRepos.useQuery();
+
+  useEffect(() => {
+    if (reposData) {
+      setRepos(reposData);
+    }
+  }, [reposData]);
+
+  const [repo, setRepo] = useState<any>(null);
+  const [repos, setRepos] = useState<any[]>([]);
+
+
+  console.log(repo);
+  console.log(repos);
 
   return (
     <SidebarProvider>
@@ -37,12 +57,33 @@ const DashboardPage = () => {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+          {/* <div className="grid auto-rows-min gap-4 md:grid-cols-3">
             <div className="aspect-video rounded-xl bg-muted/50" />
             <div className="aspect-video rounded-xl bg-muted/50" />
             <div className="aspect-video rounded-xl bg-muted/50" />
           </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" /> */}
+          
+
+
+          {repos.map((repo) => (
+            <div key={repo.id}>
+              <h1>{repo.name}</h1>
+              <p>{repo.description}</p>
+              <p>{repo.updated_at}</p>
+              <p>{repo.language}</p>
+              <p>{repo.stargazers_count}</p>
+              <p>{repo.forks_count}</p>
+              <p>{repo.open_issues_count}</p>
+              <p>{repo.watchers_count}</p>
+              <p>{repo.size}</p>
+              <p>{repo.default_branch}</p>
+
+            </div>
+          ))}
+
+
+
         </div>
       </SidebarInset>
     </SidebarProvider>

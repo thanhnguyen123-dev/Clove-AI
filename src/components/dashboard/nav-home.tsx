@@ -6,6 +6,7 @@ import {
   SidebarMenuButton,
   SidebarGroup
 } from "@/components/ui/sidebar";
+import { api } from "@/trpc/react";
 
 export function NavHome() {
   return (

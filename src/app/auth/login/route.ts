@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@/utils/supabase/server"
-import { request } from "http";
 import { type Provider } from "@supabase/supabase-js";
 
 export async function GET(request: Request) {
@@ -12,6 +11,7 @@ export async function GET(request: Request) {
     provider,
     options: {
       redirectTo: redirectUrl,
+      scopes: "repo,read:user,read:org,user:email",
     },
   })
   if (error) {
