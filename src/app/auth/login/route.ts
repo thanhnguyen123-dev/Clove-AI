@@ -6,7 +6,11 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const provider =  (searchParams.get("provider") ?? "google") as Provider;
   const supabase = await createClient();
-  const redirectUrl = process.env.NODE_ENV === "development" ? "http://localhost:3000/auth/callback" : new URL("/auth/callback", request.url).origin;
+  const redirectUrl = process.env.NEXT_PUBLIC_SITE_URL 
+    ? `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback` 
+    : process.env.NODE_ENV === "development" 
+      ? "http://localhost:3000/auth/callback" 
+      : new URL("/auth/callback", request.url).origin;
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
