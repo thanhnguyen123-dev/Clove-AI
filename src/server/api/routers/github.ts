@@ -65,6 +65,32 @@ export const githubRouter = createTRPCRouter({
         console.error("Error fetching repos:", error);
         throw error;
       }
+    }),
+
+  getRepoContent: protectedProcedure
+    .input(z.object({
+      owner: z.string(),
+      repo: z.string(),
+      path: z.string().optional(),
+    }))
+    .query(async ({input}) => {
+      try {
+        const octokit = await getOctokit();
+        const { owner, repo, path } = input;
+
+        const response = await octokit.request("GET /repos/{owner}/{repo}/contents/{path}", {
+          owner,
+          repo,
+          path: path ?? "",
+          headers: {
+            "X-GitHub-Api-Version": "2022-11-28",
+          },
+        });
+
+        return response.data;
+      } catch (error) {
+        console.error(`Error fetching repo content ${input.owner}/${input.repo}/${input.path}:`, error);
+        throw error;
+      }
     })
-    
 });
