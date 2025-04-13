@@ -92,5 +92,17 @@ export const githubRouter = createTRPCRouter({
         console.error(`Error fetching repo content ${input.owner}/${input.repo}/${input.path}:`, error);
         throw error;
       }
-    })
+    }),
+
+  getUser: protectedProcedure
+    .query(async () => {
+      const octokit = await getOctokit();
+      const response = await octokit.request("GET /user", {
+        headers: {
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      });
+      return response.data;
+    }),
+    
 });

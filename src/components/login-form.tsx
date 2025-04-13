@@ -12,18 +12,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { useRouter } from "next/navigation";
 
 const LoginForm = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) => {
-  const router = useRouter();
-  const handleGoogleLogin = async () => {
-    router.push("/auth/login?provider=google");
+  const handleGoogleLogin = () => {
+    window.location.href = "/auth/login?provider=google";
   };
-  const handleGithubLogin = async () => {
-    router.push("/auth/login?provider=github");
+  const handleGithubLogin = () => {
+    window.location.href = "/auth/login?provider=github";
   };
 
   return (

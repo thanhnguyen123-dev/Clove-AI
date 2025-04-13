@@ -18,6 +18,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { api } from "@/trpc/react";
+import RepositoryItem from "./RepositoryItem";
 
 const DashboardPage = () => {
 
@@ -29,17 +30,15 @@ const DashboardPage = () => {
     }
   }, [reposData]);
 
-  const [repo, setRepo] = useState<any>(null);
+
   const [repos, setRepos] = useState<any[]>([]);
 
 
-  console.log(repo);
   console.log(repos);
 
   return (
     <SidebarProvider>
-      <AppSidebar 
-      />
+      <AppSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
@@ -58,17 +57,9 @@ const DashboardPage = () => {
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           {repos.map((repo) => (
-            <div key={repo.id} className="flex flex-col gap-2 border border-slate-200 rounded-md p-4">
-              <h1>{repo.name}</h1>
-              <p>{repo.id}</p>
-              <p>{repo.description}</p>
-              <p>{repo.updated_at}</p>
-              <p>{repo.language}</p>
-              <p>{repo.default_branch}</p>
-
-            </div>
+            <RepositoryItem key={repo.id} {...repo} />
           ))}
-        </div>
+        </div>  
       </SidebarInset>
     </SidebarProvider>
   );
