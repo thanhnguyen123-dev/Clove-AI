@@ -35,9 +35,8 @@ const RepositoryPage = () => {
   if (error) return <div>Error loading repository: {error.message}</div>;
 
   return (
-    <div className="p-4">
+    <>
       <h1 className="text-2xl font-bold">Repository: {repo}</h1>
-      
       {files.length > 0 ? (
         <div className="mt-4">
           <h2 className="text-xl">Files in repository</h2>
@@ -54,7 +53,7 @@ const RepositoryPage = () => {
       ) : (
         <div>No files found in repository</div>
       )}
-    </div>
+    </>
   );
 }
 

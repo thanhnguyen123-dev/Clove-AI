@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { api } from "@/trpc/react";
-import RepositoryItem from "@/components/dashboard/RepositoryItem";
+import RepositoryItem from "@/components/dashboard/repository-item";
 
 export default function DashboardPage() {
   const { data: reposData } = api.github.getRepos.useQuery();
