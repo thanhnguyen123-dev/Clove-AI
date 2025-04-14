@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { signInWithGoogle, signInWithGithub } from "@/app/auth/login/route";
+import { signInWithGoogle, signInWithGithub } from "@/utils/action";
 const LoginForm = ({
   className,
   ...props
