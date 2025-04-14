@@ -110,15 +110,15 @@ export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(async ({ next }) => { 
     const supabase = await createClient();
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { user } } = await supabase.auth.getUser();
 
-    if (!session?.user) {
+    if (!user) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
     return next({
       ctx: {
-        session: { ...session, user: session.user },
+        user,
       },
     });
   });

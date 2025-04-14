@@ -1,23 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from '@/server/api/trpc'
-import { createClient } from "@/utils/supabase/server";
-import { TRPCError } from "@trpc/server";
-import { Octokit } from "octokit";
+import { getOctokit } from "@/utils/github/octokit";
 
-
-async function getOctokit() {
-  const supabase = await createClient();
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session?.provider_token) {
-    throw new TRPCError({
-      code: "UNAUTHORIZED",
-      message: "No Github access token found",
-    });
-  }
-  return new Octokit({
-    auth: session.provider_token,
-  });
-}
 export const githubRouter = createTRPCRouter({
   getRepo: protectedProcedure
     .input(z.object({
@@ -48,8 +32,6 @@ export const githubRouter = createTRPCRouter({
     .query(async () => {
       try {
         const octokit = await getOctokit();
-        
-        // First try the more comprehensive endpoint
         const response = await octokit.request("GET /user/repos", {
           visibility: "all",
           affiliation: "owner,collaborator,organization_member",

@@ -1,4 +1,3 @@
-import { helloRouter } from "@/server/api/routers/hello";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { githubRouter } from "@/server/api/routers/github";
 /**
@@ -7,7 +6,6 @@ import { githubRouter } from "@/server/api/routers/github";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  hello: helloRouter,
   github: githubRouter,
 });
 
