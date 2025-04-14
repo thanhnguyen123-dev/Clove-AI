@@ -12,16 +12,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-
+import { signInWithGoogle, signInWithGithub } from "@/app/auth/login/route";
 const LoginForm = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) => {
-  const handleGoogleLogin = () => {
-    window.location.href = "/auth/login?provider=google";
+  const handleGoogleLogin = async () => {
+    await signInWithGoogle();
   };
-  const handleGithubLogin = () => {
-    window.location.href = "/auth/login?provider=github";
+  const handleGithubLogin = async () => {
+    await signInWithGithub();
   };
 
   return (

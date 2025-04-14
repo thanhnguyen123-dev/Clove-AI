@@ -1,32 +1,34 @@
-import { NextResponse } from "next/server"
-import { createClient } from "@/utils/supabase/server"
-import { type Provider } from "@supabase/supabase-js";
+"use server";
 
-function getOriginFromRequest(request: Request) {
-  const proto = request.headers.get("x-forwarded-proto") ?? new URL(request.url).protocol;
-  const host = request.headers.get("x-forwarded-host") ?? new URL(request.url).host;
-  return `${proto}//${host}`;
-}
+import { createClient } from "@/utils/supabase/server";
+import type { Provider } from "@supabase/supabase-js";
+import { redirect } from "next/navigation";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const provider =  (searchParams.get("provider") ?? "google") as Provider;
+const signInWith = async (provider: Provider) => {
   const supabase = await createClient();
-
-  const origin = getOriginFromRequest(request);
-  const redirectUrl = `${origin}/auth/callback`;
+  const auth_callback_url = process.env.SITE_URL + "/auth/callback";
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
-      redirectTo: redirectUrl,
-      scopes: provider === "github" ? "repo,read:user,read:org,user:email" : "email profile",
+      redirectTo: auth_callback_url,
     },
-  })
+  });
+
   if (error) {
-    return NextResponse.redirect("/some-error")
+    throw new Error(error.message);
   }
 
-  return NextResponse.redirect(data.url)
-
+  redirect(data.url);
 }
+
+const signInWithGoogle = async () => {
+  await signInWith("google");
+}
+
+const signInWithGithub = async () => {
+  await signInWith("github");
+}
+
+
+export { signInWithGoogle, signInWithGithub };
