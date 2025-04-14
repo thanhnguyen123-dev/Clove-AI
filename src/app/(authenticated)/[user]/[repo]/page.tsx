@@ -31,8 +31,8 @@ const RepositoryPage = () => {
     }
   }, [repoFilesData]);
 
-  if (isLoading) return <div>Loading repository files...</div>;
-  if (error) return <div>Error loading repository: {error.message}</div>;
+  if (isLoading) return <div className="p-4">Loading repository files...</div>;
+  if (error) return <div className="p-4">Error loading repository: {error.message}</div>;
 
   return (
     <>
