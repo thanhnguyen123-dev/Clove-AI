@@ -6,12 +6,12 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
+import { currentUser } from "@clerk/nextjs/server";
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { db } from "@/server/db";
-import { createClient } from "@/utils/supabase/server";
 
 /**
  * 1. CONTEXT
@@ -26,12 +26,14 @@ import { createClient } from "@/utils/supabase/server";
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const user = await currentUser();
+
   return {
     db,
+    user,
     ...opts,
   };
 };
-
 /**
  * 2. INITIALIZATION
  *
@@ -106,19 +108,15 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
 
-export const protectedProcedure = t.procedure
-  .use(timingMiddleware)
-  .use(async ({ next }) => { 
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
-
-    return next({
-      ctx: {
-        user,
-      },
-    });
+const isAuthed = t.middleware(({ next, ctx }) => {
+  if (!ctx.user?.id) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return next({
+    ctx: {
+      user: ctx.user,
+    },
   });
+});
+
+export const protectedProcedure = publicProcedure.use(isAuthed);

@@ -12,17 +12,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { signInWithGoogle, signInWithGithub } from "@/utils/action";
+
 const LoginForm = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) => {
-  const handleGoogleLogin = async () => {
-    await signInWithGoogle();
-  };
-  const handleGithubLogin = async () => {
-    await signInWithGithub();
-  };
+  // const handleGoogleLogin = async () => {
+  //   await signInWithGoogle();
+  // };
+  // const handleGithubLogin = async () => {
+  //   await signInWithGithub();
+  // };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -49,7 +49,7 @@ const LoginForm = ({
                 <Button
                   variant="outline"
                   className="w-full cursor-pointer"
-                  onClick={handleGithubLogin}
+                  // onClick={handleGithubLogin}
                   type="button"
                 >
                   <FaGithub/>
