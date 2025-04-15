@@ -29,24 +29,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useAuth } from "@/contexts/auth-context";
-import { signOut } from "@/app/actions/auth";
+import { useAuth } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { user } = useAuth();
-  const email = user?.user_metadata?.email;
-  const name = user?.user_metadata?.name;
-  const avatarUrl = user?.user_metadata?.avatar_url;
-  const avtarFallbackText = name?.split(" ").map((n: string) => n[0]).join("");
 
-  const handleSignOut = async () => {
-    await signOut();
-  }
-
-  console.log(user?.user_metadata);
-
-  console.log(avatarUrl);
 
   return (
     <SidebarMenu>
